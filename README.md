@@ -1,11 +1,17 @@
 # MScAIPortfolio-fba
-My Essex MSc Artificial Intelligence portfolio. It will contain a page for each module of this program. 
 
+My e-Portfolio for the MSc Artificial Intelligence at the University of Essex Online.
 
-    An “About Me” page (this can include/summarise your CV)
-    A page for each module, which will include
-        A summary of the learning outcomes of the module
-        The artefacts created during the module, including a brief description of each one and any feedback received
-        A reflective piece (What exactly have I learnt and how?)
-        Meeting notes (from various meetings with team members and tutor, where applicable). 
-        Professional skills matrix and action plan (What skills have I gained or enhanced as a result of this module and how can I use it?)
+Live site: https://fedi-14.github.io/mscai_essex/
+
+## Pages
+
+- `index.html`: home page and the list of modules
+- `about-me.html`: about me
+- One page per module: `launch-into-computing.html`, `understanding-ai.html`, `numerical-analysis.html`, `intelligent-agents.html`
+
+## How it is built
+
+Plain HTML and one stylesheet, `style.css`. No JavaScript and no framework.
+The site started on an HTML5 UP template. In October 2026 I replaced it with my own simpler pages, so I can explain and update every line.
+GitHub Pages publishes the site on every push (`.github/workflows/static.yml`).
