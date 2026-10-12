@@ -1,0 +1,70 @@
+/* style.css: one stylesheet for every page of the portfolio. No JavaScript anywhere. */
+
+/* 1. Colours and fonts: change these 5 lines to change the whole look */
+:root {
+  --accent: #2f5d50;  /* forest green: header, headings, links */
+  --ink: #26302c;     /* main text */
+  --muted: #646b66;   /* captions and small text */
+  --line: #e4e0d6;    /* thin borders */
+  --bg: #faf8f3;      /* sand background */
+}
+
+/* 2. Base */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 4px; }
+
+/* 3. Page width: content is centred and never wider than 1040px */
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+/* 4. Header bar with the site name and the main menu */
+header.site { background: var(--accent); }
+.bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; padding-top: 14px; padding-bottom: 14px; }
+.brand { font-weight: 700; color: #fff; text-decoration: none; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.site-nav a { color: #fff; text-decoration: none; }
+.site-nav a[aria-current] { text-decoration: underline; text-underline-offset: 4px; }
+
+/* 5. Titles and text */
+h1 { font-size: 2rem; margin: 24px 0 4px; }
+.lede { color: var(--muted); margin: 0; }
+h2 { font-size: 1.4rem; color: var(--accent); margin: 40px 0 12px; }
+h3 { font-size: 1.1rem; margin: 24px 0 6px; }
+h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin: 16px 0 4px; }
+p { max-width: 72ch; }
+
+/* 6. Two columns on the module page: the menu on the left, the content on the right */
+.page { display: grid; grid-template-columns: 210px 1fr; gap: 40px; }
+.page > main { min-width: 0; }
+.toc { position: sticky; top: 16px; align-self: start; margin-top: 40px; border-left: 3px solid var(--accent); padding-left: 14px; }
+.toc-title { font-size: 0.8rem; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.toc ul { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 6px 0; }
+
+/* 7. Tables */
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: #fff; }
+th, td { text-align: left; vertical-align: top; padding: 8px; border-bottom: 1px solid var(--line); }
+th { background: var(--accent); color: #fff; }
+td.rating { text-align: center; width: 4.5rem; }
+
+/* 8. Screenshots, artefacts and their captions */
+figure { margin: 16px 0 24px; }
+figcaption { font-size: 0.9rem; color: var(--muted); margin-top: 6px; }
+pre { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 12px; overflow-x: auto; font-size: 0.85rem; margin: 0; }
+
+/* 9. Module list on the home page, and the references */
+.modules { list-style: none; padding: 0; margin: 0; }
+.modules li { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; margin: 10px 0; }
+.modules span { color: var(--muted); font-size: 0.9rem; margin-right: 8px; }
+.refs { padding-left: 18px; font-size: 0.9rem; }
+.refs li { margin: 6px 0; }
+
+/* 10. Footer */
+footer.site { margin-top: 48px; border-top: 1px solid var(--line); padding: 16px 0; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+/* 11. Phones: one column, and the menu sits above the content */
+@media (max-width: 760px) {
+  .page { grid-template-columns: 1fr; gap: 0; }
+  .toc { position: static; margin-top: 20px; }
+}
