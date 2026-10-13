@@ -4,14 +4,23 @@ My e-Portfolio for the MSc Artificial Intelligence at the University of Essex On
 
 Live site: https://fedi-14.github.io/mscai_essex/
 
-## Pages
+--- Pages ---
 
 - `index.html`: home page and the list of modules
 - `about-me.html`: about me
-- One page per module: `launch-into-computing.html`, `understanding-ai.html`, `numerical-analysis.html`, `intelligent-agents.html`
+- One page per module: 
+    `launch-into-computing.html`, 
+    `understanding-ai.html`, 
+    `numerical-analysis.html`, 
+    `intelligent-agents.html`
 
-## How it is built
+--- How it is built ----
 
 Plain HTML and one stylesheet, `style.css`. No JavaScript and no framework.
 The site started on an HTML5 UP template. In October 2026 I replaced it with my own simpler pages, so I can explain and update every line.
 GitHub Pages publishes the site on every push (`.github/workflows/static.yml`).
+
+---- AI acknowledgement ----
+
+I used Claude (Anthropic) to generate the stykes css file, I asked it to generate few simple and modern layout that handle web and mobile, without any JS. I then chose one style. 
+Everything else is my code.
