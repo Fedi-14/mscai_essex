@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intelligent Agents: Fedi Ben Ali</title>
+  <meta name="description" content="Intelligent Agents e-Portfolio: learning outcomes, project, team, case studies, units, discussions and professional development.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site"><div class="wrap bar">
+  <a class="brand" href="index.html">Fedi Ben Ali &middot; MSc Artificial Intelligence</a>
+  <nav class="site-nav"><a href="index.html">Home</a><a href="about-me.html">About me</a></nav>
+</div></header>
+<div class="wrap">
+  <h1>Intelligent Agents</h1>
+  <p class="lede">Module 4 &middot; University of Essex Online &middot; 2026 &middot; <a href="https://github.com/Fedi-14/research-planning-agent" target="_blank" rel="noopener">Project repository</a> &middot; <a href="https://github.com/Fedi-14/mscai_essex" target="_blank" rel="noopener">e-Portfolio repository</a></p>
+</div>
+<div class="wrap page">
+  <nav class="toc" aria-label="On this page">
+    <p class="toc-title">On this page</p>
+    <ul>
+      <li><a href="#lo">Learning outcomes</a></li>
+      <li><a href="#cases">Case studies</a></li>
+      <li><a href="#units">Units</a></li>
+      <li><a href="#pro">Professional development</a></li>
+      <li><a href="#project">Project</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#forum">Discussions</a></li>
+      <li><a href="#refs">References</a></li>
+    </ul>
+  </nav>
+  <main>
+    <section id="lo">
+      <h2>Learning outcomes</h2>
+      <table>
+        <tr><th>Outcome</th><th>Evidence</th></tr>
+        <tr><td>Analyse architectures</td><td><a href="#units">Hybrid design over pure planning or reacting; shared file over KQML</a></td></tr>
+        <tr><td>Apply under uncertainty</td><td><a href="#cases">Literature agent with quote checks and a human decision</a></td></tr>
+        <tr><td>Tools and ethics</td><td><a href="#project">Python agent, tests, privacy settings, three case studies</a></td></tr>
+        <tr><td>Team work</td><td><a href="#team">Team report, Group B forum, three discussions</a></td></tr>
+      </table>
+    </section>
+
+    <section id="cases">
+      <h2>Case studies</h2>
+      <h3>Case study 1: AI safety constraints</h3>
+      <h4>What</h4>
+      <p>My project has 2 agents. The first splits a research question into subgoals, then searches PubMed for each one. Gemini decides when a subgoal is done, but inside limits set in the code: 4 searches and 15 steps each. A unit test shows that a 5th search never reaches PubMed. And no paper counts as evidence until a person approves it.</p>
+      <h4>So what</h4>
+      <p>Gemini could ignore a limit in the prompt. It cannot ignore one in the code. The Unit 10 seminar described the same split: a language model “might generate a recommendation”, while “another component determines whether it should be executed” (Anupam, 2026).</p>
+      <p>My tests also showed how the agents fail. When Gemini hit its free limits mid-run, each subgoal was marked failed, and the file was still saved. That is failing safely. But when the error came in the step that creates the subgoals, the whole run stopped and nothing was saved, 3 times. Wooldridge (2002) warns that an agent only partly controls its environment, so any action can fail. So limits are not enough. An agent also needs a plan for when a step fails.</p>
+      <h4>Now what</h4>
+      <p>I would add a retry after a short wait to that step. In every agent I build, I want 2 things decided before the code: the limits, and what the agent does when it fails.</p>
+      <h3>Case study 2: Explainable decisions (XAI)</h3>
+      <h4>What</h4>
+      <p>My 2 agents explain themselves in 2 ways: reasons and quotes. The first logs every search with Gemini’s reason for it. The second gives every paper it picks a reason and an exact quote from the abstract. The code checks each quote word for word. In 2 runs, all 10 quotes were exact. In another, only 5 of 7 were.</p>
+      <h4>So what</h4>
+      <p>These 2 explanations are not the same. The quote can be checked. Gemini’s reasons cannot: they are more text from the same model. In Discussion 3, I asked a peer how he knew his model’s reasons were right. The 2 failed quotes show what a model can do with text nobody checks.</p>
+      <p>But the check alone was not enough. The code counted the 2 failed quotes, but the review page did not show which ones. So the reviewer saw all 7 papers the same way. The Unit 10 seminar said explanations “should support challenge and appeal, not just describe a model” (Anupam, 2026). Mine could not, because the reviewer never saw the problem. Without a flag, the human review risks becoming “merely a rubber stamp” (Anupam, 2026).</p>
+      <h4>Now what</h4>
+      <p>Next time, the review page will mark each quote as checked or failed, and show that the reasons are not checked. Then the reviewer knows what to question.</p>
+      <h3>Case study 3: Bias in autonomous decision-making</h3>
+      <h4>What</h4>
+      <p>Bias was unfortunately part of my project from the start. The first agent searches PubMed only, in English. The report planned a second source, Semantic Scholar. I got a key, but I was too far into the build to add it. PubMed also sorts by most recent by default, and my first results were mostly off-topic. I switched to relevance. Even then, on a question about exercise and depression in older adults, the first paper was a trial on knee arthritis. Gemini left it out.</p>
+      <h4>So what</h4>
+      <p>PubMed’s relevance is about the search words, not the question. So every choice before the model decides what the agents can see: the source, the language, the order. Gemini’s ranking then adds a second filter that nobody checked. My quote check even adds to it: a paper with no English abstract can never pass. And it only checks what was picked, not what was missed. The Unit 10 seminar warned that “optimising overall accuracy can conceal unequal outcomes” (Anupam, 2026).</p>
+      <h4>Now what</h4>
+      <p>I set a recall target and never measured it. Next time, I will check a sample by hand to see what the agents miss, and add a second source. An agent that searches the web finds what is written about most. No result does not mean nothing exists.</p>
+    </section>
+
+    <section id="units">
+      <h2>Units</h2>
+      <p>This is far from all I learned. Here is the one idea I would keep from each of these units.</p>
+      <h3>Unit 1: Intelligent agents</h3>
+      <p>An agent decides its own next step without being told. I used to hear &ldquo;agent&rdquo; for almost any AI tool. Prompting a model and fixing its answers by hand is not an agent: a person is needed at every turn.</p>
+      <h3>Unit 2: First-order logic</h3>
+      <p>The seminar gave me a rule I keep: use logic where the rules are solid, and a model where they are not. Rules are cheaper and easier to explain.</p>
+      <h3>Unit 3: Agent architectures</h3>
+      <p>Each bird in a flock follows 3 simple rules, and nothing codes the flock itself (Reynolds, 1987). Several agents together can do things nobody coded, so testing each agent alone is not enough.</p>
+      <h3>Unit 4: Hybrid architectures</h3>
+      <p>My project is built on it. Hybrid is not just planning plus reacting: the hard part is who decides, and when. In my first agent, Gemini plans and searches; the code sets the limits.</p>
+      <h3>Unit 5: Agent communication</h3>
+      <p>A message type needs a precise meaning, or the act it stands for never happens (Searle, 1969). KQML cannot even promise a future action. One more reason my 2 agents share one checked file.</p>
+      <h3>Unit 6: KQML dialogue between Alice and Bob</h3>
+      <figure><pre style="white-space:pre-wrap">ask-one        = I ask a question and I want one answer
+tell           = I give an answer
+
+:sender        = who sends the message
+:receiver      = who receives the message
+:language      = the language of the content (here KIF)
+:ontology      = the shared vocabulary both agents use
+:reply-with    = a name for my question (like an identifier)
+:in-reply-to   = the identifier of the question I am answering
+:content       = the question or the answer itself
+
+
+1. Alice asks how many 50 inch TVs are in stock
+
+(
+ask-one
+    :sender      Alice
+    :receiver    Bob
+    :language    KIF
+    :ontology    WAREHOUSE
+    :reply-with  q1
+    :content     (STOCK TV-50 ?quantity)
+)
+
+
+2. Bob answers: 120
+
+(
+tell
+    :sender      Bob
+    :receiver    Alice
+    :language    KIF
+    :ontology    WAREHOUSE
+    :in-reply-to q1
+    :content     (STOCK TV-50 120)
+)
+
+
+3. Alice asks how many HDMI slots the TV has
+
+(
+ask-one
+    :sender      Alice
+    :receiver    Bob
+    :language    KIF
+    :ontology    WAREHOUSE
+    :reply-with  q2
+    :content     (HDMI-SLOTS TV-50 ?slots)
+)
+
+
+4. Bob answers: 3
+
+(
+tell
+    :sender      Bob
+    :receiver    Alice
+    :language    KIF
+    :ontology    WAREHOUSE
+    :in-reply-to q2
+    :content     (HDMI-SLOTS TV-50 3)
+)</pre></figure>
+      <h3>Unit 8: Parse trees</h3>
+      <figure><pre style="white-space:pre-wrap">Group of words
+S    = sentence
+NP   = noun phrase
+VP   = verb phrase
+PP   = prepositional phrase (like with ...)
+
+Single words
+D    = determiner (like the, a ...)
+N    = noun
+V    = verb
+P    = preposition (like with)
+
+
+1. The government raised interest rates.
+S
+    NP
+        D   The
+        N   government
+    VP
+        V   raised
+        NP
+            N   interest
+            N   rates
+
+
+2. The internet gives everyone a voice.
+S
+    NP
+        D   The
+        N   internet
+    VP
+        V   gives
+        NP
+            N   everyone
+        NP
+            D   a
+            N   voice
+
+
+3. The man saw the dog with the telescope.
+S
+    NP
+        D   The
+        N   man
+    VP
+        V   saw
+        NP
+            D   the
+            N   dog
+        PP
+            P   with
+            NP
+                D   the
+                N   telescope</pre></figure>
+      <h3>Unit 10: Deep Learning in Action</h3>
+      <p>IDx-DR checks the eyes of people with diabetes for diabetic retinopathy, without an eye doctor. Deep learning detectors look for the signs of disease, then give one of 2 answers: see an eye doctor, or come back in 12 months (Muoio, 2018). In its trial, it found 87.2% of the people who needed a referral (Abr&agrave;moff et al., 2018). The risk is in the &ldquo;no&rdquo;: about 1 in 8 people with the disease are told to wait a year. As in my own system, a human check only covers what the system shows.</p>
+    </section>
+
+    <section id="pro">
+      <h2>Professional development</h2>
+      <h3>Skills Matrix</h3>
+      <p>Rated from 1 to 5.</p>
+      <table>
+        <tr><th>Skill</th><th>Rating</th><th>Evidence</th></tr>
+        <tr><td class="skill"><strong>Time management:</strong> study and build</td><td class="rating">3</td><td>I kept up with Units 1 to 7, but started coding the project late and posted Discussion 3 late.</td></tr>
+        <tr><td class="skill"><strong>Commercial awareness:</strong> AI tool limits</td><td class="rating">4</td><td>I used free tools only. Their daily limit cost me days, so real use needs a paid plan.</td></tr>
+        <tr><td class="skill"><strong>Critical thinking &amp; analysis:</strong> judging my design</td><td class="rating">4</td><td>I compared the plan with the build, and stated the limit of my quote check.</td></tr>
+        <tr><td class="skill"><strong>Communication &amp; Literacy:</strong> forum discussion</td><td class="rating">4</td><td>I posted, replied to peers and summarised in all three discussions.</td></tr>
+        <tr><td class="skill"><strong>IT &amp; Digital:</strong> building agents in Python</td><td class="rating">4</td><td>My first agents: Python, LangChain, Streamlit, SQLite, pytest and the PubMed API, over 50 commits.</td></tr>
+        <tr><td class="skill"><strong>Resilience:</strong> failed runs and limits</td><td class="rating">4</td><td>5 runs hit the free limits. I changed the model and finished the run.</td></tr>
+        <tr><td class="skill"><strong>Interpersonal:</strong> giving and taking feedback</td><td class="rating">3</td><td>I pushed back on a long review, settled it the same day, and changed my draft.</td></tr>
+        <tr><td class="skill"><strong>Problem-solving:</strong> debugging</td><td class="rating">4</td><td>I found three API limits in one run and fixed 10 of 12 failing tests.</td></tr>
+        <tr><td class="skill"><strong>Ethical awareness:</strong> human decision and privacy</td><td class="rating">3</td><td>A person decides on every paper and the API key stays private, but more controls are needed.</td></tr>
+        <tr><td class="skill"><strong>Teamwork &amp; leadership:</strong> proposing and delivering</td><td class="rating">4</td><td>I proposed the topic fully worked out, delivered my section on time, and handed over the architecture.</td></tr>
+        <tr><td class="skill"><strong>Critical reflection:</strong> learning from what failed</td><td class="rating">4</td><td>My tests file records each failure and fix; my reflective piece lists what to improve.</td></tr>
+      </table>
+      <h3>Action plan</h3>
+      <p>One action for each gap.</p>
+      <table>
+        <tr><th>Skill</th><th>Action</th><th>By when</th></tr>
+        <tr><td class="skill">Time management (3)</td><td>Start the code in the week the brief opens, not at the end.</td><td>Next module, first week of the brief</td></tr>
+        <tr><td class="skill">Interpersonal (3)</td><td>Read a long review in full and answer its content before its length.</td><td>Next team project</td></tr>
+        <tr><td class="skill">Ethical awareness (3)</td><td>Flag every output the code could not check, and retry after a short wait.</td><td>The next agent I build</td></tr>
+        <tr><td class="skill">Critical thinking (4)</td><td>Measure recall on a sample checked by hand before I call an agent finished.</td><td>The next agent I build</td></tr>
+      </table>
+    </section>
+
+    <section id="project">
+      <h2>Project</h2>
+      <figure><img src="screenshots/project-repo.png" alt="GitHub repository page of the research planning agent" loading="lazy"><figcaption><a href="https://github.com/Fedi-14/research-planning-agent" target="_blank" rel="noopener">Repository</a>: code and tests, with each failure and fix.</figcaption></figure>
+      <figure><img src="screenshots/project-pytest.png" alt="pytest output showing 8 passed" loading="lazy"><figcaption>8 unit tests passed.</figcaption></figure>
+      <figure><img src="screenshots/project-run.png" alt="Terminal output of the run of 7 October, with the reason for each search" loading="lazy"><figcaption>Run of 7 October: a reason logged for every search.</figcaption></figure>
+    </section>
+
+    <section id="team">
+      <h2>Team</h2>
+      <figure><img src="screenshots/team-minutes.png" alt="Kick-off meeting minutes of 31 July, names hidden" loading="lazy"><img src="screenshots/team-proposal.png" alt="My topic proposal of 3 August in the Group B forum" loading="lazy" style="margin-top:8px"><figcaption>Kick-off minutes: the team chose my use case.</figcaption></figure>
+      <figure><img src="screenshots/team-draft.png" alt="My first draft of Section B, posted on 3 August in the Group B forum" loading="lazy"><figcaption>My first draft of Section B.</figcaption></figure>
+      <figure><img src="screenshots/team-reply.png" alt="My reply of 5 August in the Group B forum" loading="lazy"><figcaption>My reply to a long review: I fixed the source it flagged.</figcaption></figure>
+      <figure><img src="screenshots/team-chat-1.png" alt="Team chat of 5 August, part 1, names hidden" loading="lazy"><img src="screenshots/team-chat-2.png" alt="Team chat of 5 August, part 2, names hidden" loading="lazy" style="margin-top:8px"><figcaption>Team chat: settled the same day.</figcaption></figure>
+      <figure><img src="screenshots/team-tutor-feedback.png" alt="Tutor feedback on the team report" loading="lazy"><figcaption>Tutor feedback on our team report.</figcaption></figure>
+      <p>My lesson: be patient, and see a long review as help.</p>
+    </section>
+
+    <section id="forum">
+      <h2>Discussions</h2>
+      <figure><img src="screenshots/forum-d1-initial.png" alt="My initial post in Discussion 1" loading="lazy"><img src="screenshots/forum-d1-summary.png" alt="My summary post in Discussion 1" loading="lazy" style="margin-top:8px"><figcaption>Discussion 1 (Units 1 to 3). Summary posted before the second reply.</figcaption></figure>
+      <figure><img src="screenshots/forum-d2-initial.png" alt="My initial post in Discussion 2" loading="lazy"><img src="screenshots/forum-d2-summary.png" alt="My summary post in Discussion 2" loading="lazy" style="margin-top:8px"><figcaption>Discussion 2 (Units 5 to 7).</figcaption></figure>
+      <figure><img src="screenshots/forum-d3-initial.png" alt="My initial post in Discussion 3" loading="lazy"><img src="screenshots/forum-d3-dla.png" alt="My Deep Learning in Action post in Discussion 3" loading="lazy" style="margin-top:8px"><img src="screenshots/forum-d3-summary.png" alt="My summary post in Discussion 3" loading="lazy" style="margin-top:8px"><figcaption>Discussion 3 (Units 9 to 11).</figcaption></figure>
+    </section>
+
+    <section id="refs">
+      <h2>References</h2>
+      <ul class="refs">
+        <li>Abr&agrave;moff, M.D., Lavin, P.T., Birch, M., Shah, N. and Folk, J.C. (2018) &lsquo;Pivotal trial of an autonomous AI-based diagnostic system for detection of diabetic retinopathy in primary care offices&rsquo;, <em>npj Digital Medicine</em>, 1, article 39.</li>
+        <li>Anupam, A. (2026) &lsquo;Deep Learning in Action&rsquo; [Seminar]. <em>Intelligent Agents</em>. University of Essex Online. 29 September.</li>
+        <li>Muoio, D. (2018) &lsquo;FDA permits marketing of AI software that autonomously detects diabetic retinopathy&rsquo;, <em>MobiHealthNews</em>, 12 April. Available at: https://www.mobihealthnews.com/news/fda-permits-marketing-ai-software-autonomously-detects-diabetic-retinopathy (Accessed: 12 October 2026).</li>
+        <li>Reynolds, C.W. (1987) &lsquo;Flocks, herds and schools: a distributed behavioral model&rsquo;, <em>Computer Graphics</em>, 21(4), pp. 25-34.</li>
+        <li>Searle, J.R. (1969) <em>Speech acts: an essay in the philosophy of language</em>. Cambridge: Cambridge University Press.</li>
+        <li>Wooldridge, M. (2002) <em>An Introduction to MultiAgent Systems</em>. Chichester: John Wiley &amp; Sons.</li>
+      </ul>
+    </section>
+  </main>
+</div>
+<footer class="site"><div class="wrap">&copy; 2026 Fedi Ben Ali &middot; MSc Artificial Intelligence, University of Essex Online</div></footer>
+</body>
+</html>
